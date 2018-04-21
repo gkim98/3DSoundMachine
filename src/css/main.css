@@ -2,7 +2,9 @@ body {
   background-attachment: fixed;
 }
 
-.work {
+.bar__flex-container {
+  display: flex;
+  width: 100%;
   background-color: red;
 }
 /*# sourceMappingURL=main.css.map */
