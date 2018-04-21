@@ -4,6 +4,7 @@ import { Howl, Howler } from 'howler';
 import snapping from '../sounds/snapping.mp3';
 import birds from '../sounds/birds.mp3';
 import SoundSource from './SoundSource';
+import Listener from './Listener';
 
 class GrantPage extends React.Component {
     constructor(props) {
@@ -49,10 +50,11 @@ class GrantPage extends React.Component {
             <div>
                 <button onClick={this.playSound}>Sound</button>
                 <button onClick={this.addSource}>Add Sound Source</button>
+                <Listener />
                 {
-                    this.state.sources.map(() => {
+                    this.state.sources.map((data, i) => {
                         return (
-                            <SoundSource />
+                            <SoundSource key={i}/>
                         )
                     })
                 }
