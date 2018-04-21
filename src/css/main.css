@@ -15,6 +15,7 @@ body {
 
 .button__play {
   background-color: green;
+  color: white;
 }
 
 .button__add-files {
