@@ -1,7 +1,7 @@
 import React from 'react';
 import { Howl, Howler } from 'howler';
 import birdSound from '../sounds/clap.wav';
-import ToolBar from "./ToolBar";
+import Toolbar from "./Toolbar";
 
 // var sound = new Howl({
 //     src: birdSound
@@ -60,7 +60,7 @@ export default class DavidPage extends React.Component {
         return (
             <div>
 
-                <ToolBar />
+                <Toolbar />
                 {/* <input id="sound-file" type="file" onChange={this.selectFile.bind(this)}/>
                
                 {
