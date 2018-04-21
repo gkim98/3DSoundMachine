@@ -13,7 +13,9 @@ export default class ToolBar extends React.Component {
     render() {
         return (
             <div className="bar__flex-container">
-                
+                <button className="button button__add-sound"> Add Sound </button>
+                <button className="button button__play"> Play </button>
+                <button className="button button__add-files"> Add Files + </button>
             </div>  
         )
     }

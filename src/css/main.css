@@ -2,9 +2,18 @@ body {
   background-attachment: fixed;
 }
 
+.button {
+  outline: none;
+  text-decoration: none;
+  padding: 10px 70px;
+}
+
+.button__add-sound {
+  background-color: transparent;
+}
+
 .bar__flex-container {
   display: flex;
   width: 100%;
-  background-color: red;
 }
 /*# sourceMappingURL=main.css.map */

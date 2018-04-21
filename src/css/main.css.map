@@ -1,9 +1,12 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,IAAI,CAAC;EACD,qBAAqB,EAAE,KAAK;CAC/B;;ACDG,AAAA,oBAAiB,CAAC;EACd,OAAO,EAAE,IAAI;EACb,KAAK,EAAE,IAAI;EACX,gBAAgB,EAAE,GAAG;CACxB",
+    "mappings": "AAAA,AAAA,IAAI,CAAC;EACD,qBAAqB,EAAE,KAAK;CAC/B;;ACFD,AAAA,OAAO,CAAC;EACJ,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,IAAI;EACrB,OAAO,EAAE,SAAS;CAerB;;AAbG,AAAA,kBAAY,CAAC;EACT,gBAAgB,EAAE,WAAW;CAChC;;ACND,AAAA,oBAAiB,CAAC;EACd,OAAO,EAAE,IAAI;EACb,KAAK,EAAE,IAAI;CACd",
     "sources": [
         "../sass/main.scss",
-        "../sass/components/_bar.scss"
+        "../sass/base/_buttons.scss",
+        "../sass/components/_bar.scss",
+        "../sass/components/_soundSource.scss",
+        "../sass/components/_speaker.scss"
     ],
     "names": [],
     "file": "main.css"

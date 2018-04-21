@@ -2,6 +2,8 @@ body {
     background-attachment: fixed;
 }
 
+@import "base/buttons";
+
  @import "components/bar";
  @import "components/soundSource";
  @import "components/speaker";
