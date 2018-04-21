@@ -1,20 +1,23 @@
 import React from 'react';
+import { Howl, Howler } from 'howler';
 
-class Toolbar extends React.Component {
+
+export default class ToolBar extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
+        this.state = {
 
-        }
+        };
     }
 
     render() {
         return (
-            <div>
-                toolbar
-            </div>
+            <div className="bar__flex-container">
+                
+            </div>  
         )
     }
+
+
 }
 
-export default Toolbar
