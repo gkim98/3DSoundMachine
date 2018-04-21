@@ -1,8 +1,9 @@
 import React from 'react';
 import { Howl, Howler } from 'howler';
+
 import snapping from '../sounds/snapping.mp3';
 import birds from '../sounds/birds.mp3';
-import Draggable, {DraggableCore} from 'react-draggable';
+import SoundSource from './SoundSource';
 
 class GrantPage extends React.Component {
     constructor(props) {
@@ -49,22 +50,13 @@ class GrantPage extends React.Component {
                 <button onClick={this.playSound}>Sound</button>
                 <button onClick={this.addSource}>Add Sound Source</button>
                 {
-                    this.state.sources()
+                    this.state.sources.map(() => {
+                        return (
+                            <SoundSource />
+                        )
+                    })
                 }
-                <Draggable
-                    handle=".handle"
-                    defaultPosition={{x: 0, y: 0}}
-                    position={null}
-                    grid={[1, 1]}
-                    onStart={this.handleStart}
-                    onDrag={this.handleDrag}
-                    onStop={this.handleStop}
-                >
-                    <div>
-                        <div className="handle">Drag from here</div>
-                        <div>This readme is really dragging on...</div>
-                    </div>
-                </Draggable>
+                
             </div>
         )
     }
