@@ -2,18 +2,21 @@
     outline: none;
     text-decoration: none;
     padding: 10px 70px;
+    height: 50px;
 
     &__add-sound {
         background-color: transparent;
     }
 
-    &__add-files {
-        
-        
-    }
+  
 
     &__play {
+        background-color: green;
+    }
 
+    &__add-files {
+        background-color: transparent;
+       
     }
 
 }
