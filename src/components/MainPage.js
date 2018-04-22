@@ -3,8 +3,6 @@ import { Howl, Howler } from 'howler';
 import birdSound from '../sounds/clap.wav';
 import Toolbar from "./Toolbar";
 import SoundBoard from "./SoundBoard";
-import SourceSettings from './SourceSettings';
-
 
 export default class MainPage extends React.Component {
     constructor(props) {
@@ -43,7 +41,7 @@ export default class MainPage extends React.Component {
                         
                     })
                 } */}
-                <SourceSettings />
+               
             </div>
         );
     }

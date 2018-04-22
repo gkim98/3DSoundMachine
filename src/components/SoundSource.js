@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 import snapping from '../sounds/snapping.mp3';
 import beep from '../sounds/beep.wav';
 
+/*
+    settings:
+        isLooping
+        delay
+*/
+
 class SoundSource extends React.Component {
     constructor(props) {
         super(props);
@@ -18,7 +24,8 @@ class SoundSource extends React.Component {
                 x: 0,
                 y: 0,
             },
-            delay: 0
+            isLooping: this.props.isLooping,
+            delay: this.props.delay
         }
     }
 
@@ -37,16 +44,15 @@ class SoundSource extends React.Component {
     playSound = () => {
         console.log(this.props.listener.position);
         var sound = new Howl({
-            src: this.props.source.file,
-            format: this.props.source.type,
+            src: this.props.file,
+            loop: this.state.isLooping,
+            format: this.props.type,
             onend: this.props.donePlaying,
         });
 
         this.setState({
             sound
         });
-
-        
 
         // experiment with the scaling factor
         // sets the position of the listener
@@ -62,18 +68,20 @@ class SoundSource extends React.Component {
         let yS = ((2 * yL - this.state.deltaPosition.y) / 100);
         sound.pos(xS, yS, 0)
 
-
         // times when source should produce sound
         // pass in delay prop in terms of seconds
         setTimeout(function() {
             sound.play()
-        }, this.props.delay * 1000)
-
-        
+        }, this.state.delay * 1000)
     }
 
     stopSound() {
         this.state.sound.stop();
+    }
+
+    sourceClicked = () => {
+        this.props.setRef(this.props.id);
+        this.props.toForm(this.state.isLooping, this.state.delay);
     }
 
     // move style to a style tag and give class name
@@ -84,14 +92,17 @@ class SoundSource extends React.Component {
                 <Draggable
                     onDrag={this.handleDrag} 
                 >
-                    <div style={{position: 'absolute', top: '50px', left: '50px'}}>
+                    <div style={{position: 'absolute', top: '50%', left: '50%'}}>
                         <div className='handle'>
-                            {this.props.source.name}
+                            {this.props.name}
                             <br />
                             x: {deltaPosition.x},
                             y: {deltaPosition.y}
                         </div>
-                        <div className='source'>
+                        <div 
+                            className='source'
+                            onClick={this.sourceClicked}
+                        >
                             <i class="fas fa-volume-up"></i>
                         </div>
                     </div>
