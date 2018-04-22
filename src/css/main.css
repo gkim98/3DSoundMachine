@@ -322,4 +322,9 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.fa-caret-up {
+  position: absolute;
+  transform: translateX(-15%);
+}
 /*# sourceMappingURL=main.css.map */

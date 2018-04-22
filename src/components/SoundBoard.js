@@ -32,6 +32,10 @@ class SoundBoard extends React.Component {
         if(file.substr(0, 5) === "blob:")
             file = [file];
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a8205a7b9cb7b0af2555a567a5fe302f4a7b7b72
         // uuid allows each source to have a unique identifier
         this.setState({
             sources: keyIndex([...this.state.sources, {

@@ -5,6 +5,7 @@
     bottom: 2%;
     position: absolute;
     
+    
     .scrubber__slider {
         
         -webkit-appearance: none;  /* Override default CSS styles */
@@ -71,4 +72,10 @@
     }
 
 
+}
+
+.fa-caret-up {
+    position: absolute;
+    transform: translateX(-15%);
+   
 }
