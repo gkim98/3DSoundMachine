@@ -92,8 +92,8 @@ class Listener extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    updateXPosition: () => dispatch(setListenerXPosition()),
-    updateYPosition: () => dispatch(setListenerYPosition())
+    updateXPosition: (xPos) => dispatch(setListenerXPosition(xPos)),
+    updateYPosition: (yPos) => dispatch(setListenerYPosition(yPos))
 });
 
 export default connect(undefined, mapDispatchToProps)(Listener);
