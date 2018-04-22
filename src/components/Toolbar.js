@@ -11,8 +11,7 @@ import Crowd from '../sounds/crowd.wav';
 import Seagulls from '../sounds/seagulls.wav';
 import Playing from '../sounds/playing.mp3';
 
-function fancyTimeFormat(time)
-{   
+function fancyTimeFormat(time) {   
     // Hours, minutes and seconds
     var hrs = ~~(time / 3600);
     var mins = ~~((time % 3600) / 60);
@@ -34,8 +33,6 @@ export default class Toolbar extends React.Component {
     constructor(props) {
         super(props);
 
-
-        
         var sound2 = new Howl({
             src: [Clap],
             onend: this.previewEnd.bind(this),
@@ -79,11 +76,6 @@ export default class Toolbar extends React.Component {
             onend: this.previewEnd.bind(this),
             onload: this.updateDuration.bind(this)
         });
-
-
-
-
-
 
         this.state = {
             soundFile: [
@@ -232,7 +224,7 @@ export default class Toolbar extends React.Component {
 
         var current = this.state.soundFile;
         this.state.soundFile.map( (file, index) => {
-            current[index].duration = fancyTimeFormat(file.sound.duration());
+            current[index].duration = file.sound.duration();
         });
 
         //console.log(current);
@@ -265,8 +257,8 @@ export default class Toolbar extends React.Component {
 
         
 
-
-        this.props.onAddSource( selectedSoundFile.src, selectedSoundFile.name, selectedSoundFile.type );
+        
+        this.props.onAddSource( selectedSoundFile.src, selectedSoundFile.name, selectedSoundFile.type, selectedSoundFile.duration);
 
 
     }
@@ -307,7 +299,7 @@ export default class Toolbar extends React.Component {
                                             {this.state.soundFile[index].name}
 
                                             <p className="duration">
-                                                {this.state.soundFile[index].duration} &nbsp;
+                                                {fancyTimeFormat(this.state.soundFile[index].duration)} &nbsp;
                                             </p>
 
 

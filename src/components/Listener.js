@@ -67,8 +67,6 @@ class Listener extends React.Component {
                 >
                     <div style={{position: 'absolute', top: '50%', left: '50%'}}>
                         <div className="handle">
-                            x: {deltaPosition.x},
-                            y: {deltaPosition.y}
                         </div>
                         <div className="speaker">
                             <i class="fas fa-microphone"></i>

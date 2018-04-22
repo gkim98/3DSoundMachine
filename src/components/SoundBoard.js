@@ -15,7 +15,8 @@ class SoundBoard extends React.Component {
             // ref refers to the specific sound source
             currentRef: "",
             currentIsLooping: false,
-            currentDelay: 0
+            currentDelay: 0,
+
         }
     }
 
@@ -27,8 +28,8 @@ class SoundBoard extends React.Component {
         this.props.onRef(undefined);
     }
 
-    addSource = (file, name, ext) => {
-      
+    addSource = (file, name, ext, duration) => {
+        
         if(file.substr(0, 5) === "blob:")
             file = [file];
 
@@ -39,10 +40,15 @@ class SoundBoard extends React.Component {
                 file,
                 name,
                 type: ext,
-                isLooping: false
+                isLooping: false,
+                duration
             }], 1)
-        })
-        console.log(this.state.sources)
+        }, function() {
+            this.scrub();
+        }.bind(this));
+        //console.log(this.state.sources);
+
+        
     }
 
     // iterates through all the sound sources and plays their sounds
@@ -52,12 +58,15 @@ class SoundBoard extends React.Component {
             return;
         }
 
+        this.props.startScrub();
+
         for(let i = 0; i < this.state.sources.length; i++) {
             this[`source${this.state.sources[i]._delayId}`].getWrappedInstance().playSound();
         }
     }
 
     stopPlaying() {
+        this.props.stopScrub();
         for(let i = 0; i < this.state.sources.length; i++) {
             this[`source${this.state.sources[i]._delayId}`].getWrappedInstance().stopSound();
         }
@@ -86,7 +95,7 @@ class SoundBoard extends React.Component {
         this.setState({
             currentRef: ref
         }, function() {
-            console.log(this.state.currentRef)
+            //console.log(this.state.currentRef)
         });
         // this[`source${this.state.currentRef}`].getWrappedInstance().state
     }
@@ -96,17 +105,62 @@ class SoundBoard extends React.Component {
         const stateReference = this.settings.state;
         stateReference.isLooping = looping;
         stateReference.delay = delay;
+        
     }
 
     // when settings form submitted => changes the source's state
     // passed down to settings form
     applySourceSettings = (looping, delay) => {
-
         const stateReference = this[`source${this.state.currentRef}`].getWrappedInstance().state;
+
+        console.log(this[`source${this.state.currentRef}`].props);
+       
+
+        this.state.sources.map( (source, index) => {
+            if(source._delayId === this[`source${this.state.currentRef}`].props.id) {
+                console.log(index);
+                var current = this.state.sources;
+                current[index].delay = delay;
+                this.setState({
+                    sources: current,
+                })
+            }
+        });
+
+
         stateReference.isLooping = looping;
         stateReference.delay = delay;
 
+        this.scrub();
+
+     
+
+
+
+       
     }
+
+    setName(name) {
+        this.settingsChild.setName(name);
+    }
+
+    scrub() {
+        var max = 0;
+        var onlyDelays = [];
+        this.state.sources.map( (source, index) => {
+            if( (source.duration + parseInt(source.delay))  > max)
+                max = source.duration + parseInt(source.delay);
+            
+            onlyDelays = [...onlyDelays, source.delay];
+        });
+
+      
+        //console.log(max);
+    
+        this.props.updateScrubber( max, onlyDelays);
+    }
+
+
 
     render() {
         // replace the add source button with yours
@@ -131,15 +185,19 @@ class SoundBoard extends React.Component {
                                 setRef={this.setRef}
                                 toForm={this.currentToForm}
                                 id={data._delayId}
+                                setName={this.setName.bind(this)}
                             />
                         )
                     })
                 }
                 <SourceSettings 
+                    onRef={ref => (this.settingsChild = ref)}
                     delay={this.state.currentDelay} 
                     isLooping={this.state.currentIsLooping}
                     onClick={this.applySourceSettings}
                     ref={(settings) => this.settings = settings}
+                
+
                 />
             </div>
         )

@@ -5,6 +5,8 @@ function round(num) {
     return Math.ceil(num * 100) / 100;
 }
 
+var myVar;
+
 export default class Scrubber extends React.Component {
     constructor(props) {
         super(props);
@@ -15,13 +17,17 @@ export default class Scrubber extends React.Component {
             length: 30,
             startTime: null,
             pixelMaxValue: 0.8 * window.innerWidth,
-            marks: [1, 5, 10, 20],
+            marks: [],
         };
+    }
 
 
+    componentWillUnmount() {
+        this.props.onRef(undefined);
     }
     
     componentDidMount() {
+        this.props.onRef(this);
         this.setState({
             pixelMaxValue: document.querySelector("#myRange").offsetWidth,
         });
@@ -46,7 +52,7 @@ export default class Scrubber extends React.Component {
             currentValue: 0,
         });
 
-        var myVar = setInterval(function(){ 
+        myVar = setInterval(function(){ 
             this.setState({
                 currentValue: this.state.currentValue + 100,
             });
@@ -58,6 +64,18 @@ export default class Scrubber extends React.Component {
             }
                 
          }.bind(this), 100);
+    }
+
+    stop() {
+        clearInterval(myVar);
+    }
+
+    update(length, marks) {
+        this.setState({
+            length: round(length), 
+            marks,
+            maxValue: length * 1000
+        });
     }
     
     render() {
@@ -85,7 +103,7 @@ export default class Scrubber extends React.Component {
                     {
                         this.state.marks.map( (mark, index) => {
                             var pos = this.state.marks[index]/this.state.length * this.state.pixelMaxValue;
-                            console.log(pos.toString());
+                            //console.log(pos.toString());
                             return (
                                 <i class="fas fa-caret-up" style={{left: pos.toString()+"px" }} key={index}></i>
                             )

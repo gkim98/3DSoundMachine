@@ -7,10 +7,33 @@
 }
 
 .handle {
-    transform: translateX(-40%);
+    transform: translateX(-15%);
     text-align: center;
 }
 
 .fa-volume-up {
     color: white;
+}
+
+.settings {
+
+    &__input {
+        text-align: center;
+        width: 30%;
+        //border-radius: 10px;
+        border: 1px solid black;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        outline: none;
+    }
+
+    &__form {
+        
+        
+    }
+}
+
+.killMargin {
+    margin: 0;
 }

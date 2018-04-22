@@ -27,6 +27,8 @@ class SoundSource extends React.Component {
             isLooping: this.props.isLooping,
             delay: this.props.delay
         }
+
+      
     }
 
     // tracks positioning of the sound source
@@ -80,6 +82,7 @@ class SoundSource extends React.Component {
     }
 
     sourceClicked = () => {
+        this.props.setName(this.props.name);
         this.props.setRef(this.props.id);
         this.props.toForm(this.state.isLooping, this.state.delay);
     }
@@ -95,9 +98,6 @@ class SoundSource extends React.Component {
                     <div style={{position: 'absolute', top: '50%', left: '50%'}}>
                         <div className='handle'>
                             {this.props.name}
-                            <br />
-                            x: {deltaPosition.x},
-                            y: {deltaPosition.y}
                         </div>
                         <div 
                             className='source'

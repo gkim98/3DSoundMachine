@@ -225,12 +225,26 @@ body {
 }
 
 .handle {
-  transform: translateX(-40%);
+  transform: translateX(-15%);
   text-align: center;
 }
 
 .fa-volume-up {
   color: white;
+}
+
+.settings__input {
+  text-align: center;
+  width: 30%;
+  border: 1px solid black;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline: none;
+}
+
+.killMargin {
+  margin: 0;
 }
 
 .speaker {
