@@ -1,23 +1,51 @@
 import React from 'react';
+import { Howl, Howler } from 'howler';
+import birdSound from '../sounds/clap.wav';
+import Toolbar from "./Toolbar";
+import SoundBoard from "./SoundBoard";
 
-import SoundBoard from './SoundBoard';
-import Toolbar from './Toolbar'
 
-class MainPage extends React.Component {
+
+export default class DavidPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
 
-        }
+        this.state = {
+
+        };
+    }
+ 
+    addSource(src, name) {
+        this.child.addSource(src, name);
     }
 
+
+
+   
+    
     render() {
         return (
             <div>
-                <SoundBoard />
-            </div>
-        )
-    }
-}
 
-export default MainPage
+                <Toolbar onAddSource={this.addSource.bind(this)} />
+                <SoundBoard onRef={ref => (this.child = ref)}/>
+                {/* <input id="sound-file" type="file" onChange={this.selectFile.bind(this)}/>
+               
+                {
+                    this.state.sounds.map((sound, index) => {
+                        console.log(this.state.names);
+                        return (
+
+                            <div key={index}> 
+                                {this.state.names[index]}
+                            </div>
+                        )
+                        
+                    })
+                } */}
+            </div>
+        );
+    }
+
+    
+}
