@@ -65,7 +65,7 @@ class Listener extends React.Component {
                 <Draggable
                     onDrag={this.handleDrag} 
                 >
-                    <div style={{position: 'absolute', top: '50px', left: '50px'}}>
+                    <div style={{position: 'absolute', top: '50%', left: '50%'}}>
                         <div className="handle">
                             x: {deltaPosition.x},
                             y: {deltaPosition.y}
