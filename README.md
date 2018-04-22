@@ -2,7 +2,7 @@
 
   Sound Escape is a tool that allows you to turn regular sound files into a 3D audio environment. By dragging your sound files into the environment and positioning them around the listener, the sounds will appear to surround you.
 
-![alt text](../pics/exm1.png)
+![alt text](./pics/exm1.png)
 
 ## Inspiration
 Back when we were kids, there was this video called the "Virtual Barber Shop" that blew our minds.
