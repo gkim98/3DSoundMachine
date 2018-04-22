@@ -14,7 +14,7 @@ class SoundBoard extends React.Component {
             sourcesDonePlaying: 0,
             // ref refers to the specific sound source
             currentRef: "",
-            currentIsLooping: true,
+            currentIsLooping: false,
             currentDelay: 0
         }
     }
@@ -31,12 +31,6 @@ class SoundBoard extends React.Component {
       
         if(file.substr(0, 5) === "blob:")
             file = [file];
-
-<<<<<<< HEAD
-        // console.log(file);
-        // console.log(ext);
-=======
->>>>>>> d422b3d2cc02a8d93abf158720ebb08fdd00ec80
 
         // uuid allows each source to have a unique identifier
         this.setState({
