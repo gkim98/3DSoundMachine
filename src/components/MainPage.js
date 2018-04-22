@@ -26,10 +26,8 @@ export default class MainPage extends React.Component {
     render() {
         return (
             <div>
-
                 <Toolbar onAddSource={this.addSource.bind(this)} />
                 <SoundBoard onRef={ref => (this.child = ref)}/>
-                <SourceSettings />
                 <Scrubber />
             </div>
         );

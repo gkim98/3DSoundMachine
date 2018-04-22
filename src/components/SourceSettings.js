@@ -32,23 +32,27 @@ export default class SourceSettings extends React.Component {
 
     render() {
         return (
-            <div style={{float: 'right'}}>
-                <form>
-                    Looping <input 
+            <div style={{float: 'left'}}>
+                
+                    
+                    <input 
                         type='checkbox' 
                         checked={this.state.isLooping}
                         onChange={this.changeLooping}
                         id='isLooping'
                     />
-                    Delay <input 
+                    Loop 
+                    
+                    <input 
                         type='text' 
                         value={this.state.delay} 
                         onChange={this.changeDelay}
                         name='delay'
                         id='delay'
                     />
+                    Delay 
                     <button onClick={this.applyClicked}>Apply Changes</button>
-                </form>
+          
             </div>
         );
     }
