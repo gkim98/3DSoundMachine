@@ -51,13 +51,9 @@ class SoundSource extends React.Component {
         // sets the position of the listener
         // toFixed() rounds the position values
 
-        // let xL = this.props.listener.xPos / 100;
-        // console.log(xL);
-        // let yL = this.props.listener.yPos / 100;
-        // Howler.pos(xL, yL, 0)
-
-        let yL = 250
-        Howler.pos(2.5, 2.5, 0)
+        let xL = this.props.listener.xPos / 100;
+        let yL = this.props.listener.yPos / 100;
+        Howler.pos(xL, yL, 0)
 
         // sets the position of the sound source
         // change the y coord of the source due to axis orientation
