@@ -77,16 +77,24 @@
     }
 }
 
-.fas {
-    position: relative;
-    float: left;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 0%);
+// .fas {
+//     position: relative;
+//     float: left;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, 0%);
+// }
+
+.fa-volume-up {
+    color: white;
 }
 
 .hidden {
     display: none;
+}
+
+.disable {
+    pointer-events: none;
 }
 
 .duration {

@@ -65,14 +65,15 @@ export default class Toolbar extends React.Component {
 
         this.state = {
             soundFile: [
-                {sound: sound1, name: "Birds", duration: "--:--", previewClass: "", playStop: "play"},
-                {sound: sound2, name: "Clap", duration: "--:--", previewClass: "", playStop: "play"},
-                {sound: sound3, name: "Applause", duration: "--:--", previewClass: "", playStop: "play"},
-                {sound: sound4, name: "Ping", duration: "--:--", previewClass: "", playStop: "play"},
-                {sound: sound5, name: "Waves", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound1, src: BirdSound, name: "Birds", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound2, src: Clap, name: "Clap", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound3, src: Applause, name: "Applause", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound4, src: Ping, name: "Ping", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound5, src: Waves, name: "Waves", duration: "--:--", previewClass: "", playStop: "play"},
             ],
             playingIDs: [],
-            messageClass: "hidden"
+            messageClass: "hidden",
+            hideDropdown: ""
         };
     }
 
@@ -95,7 +96,7 @@ export default class Toolbar extends React.Component {
         });
 
         this.setState({
-            soundFile: [{sound: sound, name: fileObj.name, previewClass: "", playStop: "play"}, ...this.state.soundFile],
+            soundFile: [{sound: sound, name: fileObj.name, src: objectURL, previewClass: "", playStop: "play"}, ...this.state.soundFile],
             messageClass: "moveInLeft"
         });
 
@@ -201,16 +202,6 @@ export default class Toolbar extends React.Component {
         });
     }
 
-    handleAddSound(event) {
-        //console.log(event.target.tagName);
-        if(event.target.tagName==="I" || event.target.tagName==="SPAN" || event.target.tagName==="BUTTON")
-            return;
-
-        var selectedID = event.target.id;
-        var selectedSound = this.state.soundFile[selectedID].sound;
-
-    }
-
     updateDuration() {
         //console.log("loaded");
 
@@ -223,7 +214,39 @@ export default class Toolbar extends React.Component {
         this.setState({
             soundFile: current,
         });
+
+
     }
+
+    handleAddSound(event) {
+        //console.log(event.target.tagName);
+        if(event.target.tagName==="I" || event.target.tagName==="SPAN" || event.target.tagName==="BUTTON")
+            return;
+
+        var selectedID = event.target.id;
+        var selectedSoundFile = this.state.soundFile[selectedID];
+
+        this.setState({
+            hideDropdown: "disable",
+        }, function() {
+            setTimeout(function() {
+                this.setState({
+                    hideDropdown: "",
+                });
+            }.bind(this), 500);
+        });
+
+       
+
+        
+
+
+        this.props.onAddSource( selectedSoundFile.src, selectedSoundFile.name );
+
+
+    }
+
+    
 
 
 
@@ -232,16 +255,14 @@ export default class Toolbar extends React.Component {
             <div>
                 
                 <div>
-                    <div className="dropdown">
-                        
+                    <div className={"dropdown "+ this.state.hideDropdown}>
                         <div className="dropdown-left">
                             <button className="button button__add-sound"> Add Sound </button> 
                             <p className={"bar__message " + this.state.messageClass}>
                                 Sound Added
                             </p>
                         </div>
-                        <div className="dropdown-content">
-    
+                        <div className={"dropdown-content "}>
                     
                             {
                                 this.state.soundFile.map((sound, index) => {

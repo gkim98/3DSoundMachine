@@ -13,6 +13,7 @@ class SoundSource extends React.Component {
         // delay: time before it produces sound
         // isLooping: (add this prop)
         this.state={
+            sound: null,
             deltaPosition: {
                 x: 0,
                 y: 0,
@@ -34,10 +35,17 @@ class SoundSource extends React.Component {
 
     // plays its sound relative to the listener
     playSound = () => {
-        console.log(this.props.listener.position)
-        let sound = new Howl({
-            src: snapping
+        console.log(this.props.listener.position);
+        var sound = new Howl({
+            src: this.props.source.file,
+            onend: this.props.donePlaying,
         });
+
+        this.setState({
+            sound
+        });
+
+        
 
         // experiment with the scaling factor
         // sets the position of the listener
@@ -57,11 +65,18 @@ class SoundSource extends React.Component {
         let yS = ((2 * yL - this.state.deltaPosition.y) / 100);
         sound.pos(xS, yS, 0)
 
+
         // times when source should produce sound
         // pass in delay prop in terms of seconds
         setTimeout(function() {
             sound.play()
         }, this.props.delay * 1000)
+
+        
+    }
+
+    stopSound() {
+        this.state.sound.stop();
     }
 
     // move style to a style tag and give class name
@@ -74,10 +89,14 @@ class SoundSource extends React.Component {
                 >
                     <div style={{position: 'absolute', top: '50px', left: '50px'}}>
                         <div className='handle'>
+                            {this.props.source.name}
+                            <br />
                             x: {deltaPosition.x},
                             y: {deltaPosition.y}
                         </div>
-                        <div className='source'></div>
+                        <div className='source'>
+                            <i class="fas fa-volume-up"></i>
+                        </div>
                     </div>
                 </Draggable>
             </div>
