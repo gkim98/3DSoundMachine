@@ -41,11 +41,15 @@ export default class Toolbar extends React.Component {
 
 
         this.state = {
-            sounds: [sound1, sound2, sound3, sound4, sound5],
-            fileNames: ["Birds", "Clap", "Applause", "Ping", "Waves"],
-            previewClasses: ["", "", "", "", ""],
+            soundFile: [
+                {sound: sound1, name: "Birds", previewClass: "", playStop: "play"},
+                {sound: sound2, name: "Clap", previewClass: "", playStop: "play"},
+                {sound: sound3, name: "Applause", previewClass: "", playStop: "play"},
+                {sound: sound4, name: "Ping", previewClass: "", playStop: "play"},
+                {sound: sound5, name: "Waves", previewClass: "", playStop: "play"},
+            ],
             playingIDs: [],
-            playStop: ["play", "play", "play", "play", "play"]
+            messageClass: "hidden"
         };
     }
 
@@ -59,6 +63,7 @@ export default class Toolbar extends React.Component {
 
         var type = fileObj.type.split("/")[1];
 
+
         var sound = new Howl({
             src: [objectURL],
             format: type,
@@ -66,11 +71,16 @@ export default class Toolbar extends React.Component {
         });
 
         this.setState({
-            sounds: [sound, ...this.state.sounds],
-            fileNames: [fileObj.name, ...this.state.fileNames],
-            previewClasses: ["", ...this.state.previewClasses],
-            playStop: [ "play", ...this.state.playStop]
-        })
+            soundFile: [{sound: sound, name: fileObj.name, previewClass: "", playStop: "play"}, ...this.state.soundFile],
+            messageClass: "moveInLeft"
+        });
+
+        setTimeout(() => {
+            this.setState({
+                messageClass: "moveOutRight"
+            })
+        }, 2000);
+
 
         //console.log(event.target.files[0]);
     }
@@ -78,22 +88,19 @@ export default class Toolbar extends React.Component {
     previewEnd(id) {
         this.state.playingIDs.map( (playingID, index) => {
             if(playingID.id === id) {
-                console.log(index);
+                console.log(playingID.index);
 
-                var previewClasses = this.state.previewClasses;
                 var playingIDs = this.state.playingIDs;
-                
-                previewClasses[playingID.index] = "";
                 playingIDs.splice(index, 1);
 
-                var playStop = this.state.playStop;
-                playStop[playingID.index] = "play";
-
+                var current = this.state.soundFile;
+                current[playingID.index].previewClass = "";
+                current[playingID.index].playStop = "play";
 
                 this.setState({
-                    previewClasses,
+                    soundFile: current,
                     playingIDs,
-                    playStop
+  
                 })
             }
         }); 
@@ -103,26 +110,12 @@ export default class Toolbar extends React.Component {
     handleDelete(event) {
         //console.log(event.target.parentElement.id);
         var indexRemove = event.target.parentElement.id;
-        var sounds = this.state.sounds;
-        var fileNames = this.state.fileNames;
-        var previewClasses = this.state.previewClasses;
-        var playStop = this.state.playStop;
-
-        if(this.state.playStop[indexRemove]  === "stop") 
-           this.stopPreview(indexRemove);
-        
-
-        sounds.splice(indexRemove, 1);
-        fileNames.splice(indexRemove, 1);
-        previewClasses.splice(indexRemove, 1);
-        playStop.splice(indexRemove, 1);
-       
+ 
+        var current = this.state.soundFile;
+        current.splice(indexRemove, 1);
 
         this.setState({
-            sounds,
-            fileNames,
-            previewClasses,
-            playStop
+            soundFile: current,
         });
     }
 
@@ -130,37 +123,31 @@ export default class Toolbar extends React.Component {
         //console.log(event.target);
         var indexPreview = event.target.parentElement.parentElement.id;
 
-        if(this.state.playStop[indexPreview]  === "play") {
-            if(this.state.sounds[indexPreview]) 
-                var id = this.state.sounds[indexPreview].play();
+        if(!this.state.soundFile[indexPreview])
+            return;
 
-            var previewClasses = this.state.previewClasses;
-            previewClasses[indexPreview] = "playing";
+        if(this.state.soundFile[indexPreview].playStop==="play") {
 
-            var playStop = this.state.playStop;
-            playStop[indexPreview] = "stop";
+            var id = this.state.soundFile[indexPreview].sound.play();
+
+            var current = this.state.soundFile;
+            current[indexPreview].previewClass = "playing";
+            current[indexPreview].playStop = "stop";
 
             this.setState({
-                previewClasses,
+                soundFiles: current,  
                 playingIDs: [...this.state.playingIDs, {index: indexPreview, id: id} ],
-                playStop,
             });
         } else {
             this.stopPreview(indexPreview);
-
         }
         
     }
 
     stopPreview(index) {
-        if(this.state.sounds[index])
-            this.state.sounds[index].stop();
-        
-        var playStop = this.state.playStop;
-        playStop[index] = "play";
-
-        var previewClasses = this.state.previewClasses;
-        previewClasses[index] = ""; 
+        if(this.state.soundFile[index])
+            this.state.soundFile[index].sound.stop();
+    
 
         var playingIDs = this.state.playingIDs;
         var splice = 0;
@@ -171,12 +158,27 @@ export default class Toolbar extends React.Component {
 
         playingIDs.splice(splice, 1);
 
+        var current = this.state.soundFile;
+        current[index].previewClass = "";
+        current[index].playStop = "play";
+
+
         this.setState({
-            playStop,
-            previewClasses,
+            soundFile:current,
             playingIDs,
         });
     }
+
+    handleAddSound(event) {
+        if(event.target.tagName==="SPAN" || event.target.tagName==="BUTTON")
+            return;
+
+        var selectedID = event.target.id;
+        var selectedSound = this.state.soundFile[selectedID].sound;
+        //console.log(selectedSound);
+    }
+
+
 
     render() {
         return (
@@ -184,27 +186,39 @@ export default class Toolbar extends React.Component {
                 
                 <div>
                     <div className="dropdown">
-                        <button className="button button__add-sound"> Add Sound </button>
+                        
+                        <div className="dropdown-left">
+                            <button className="button button__add-sound"> Add Sound </button> 
+                            <p className={"bar__message " + this.state.messageClass}>
+                                Sound Added
+                            </p>
+                        </div>
                         <div className="dropdown-content">
     
                     
                             {
-                                this.state.sounds.map((sound, index) => {
+                                this.state.soundFile.map((sound, index) => {
+                           
+
                                     return (
-                                        <div className="select-new" key={index} id={index}>
+                                        <div className="select-new" key={index} id={index} onClick={this.handleAddSound.bind(this)}>
                                             <button 
-                                                className={"button button__preview " + this.state.previewClasses[index]}
+                                                className={"button button__preview " + this.state.soundFile[index].previewClass}
                                                 onClick={this.handlePreview.bind(this)}
                                             >   
-                                                <span className={"fas fa-" + this.state.playStop[index]}></span>
+                                                <span className={"fas fa-" + this.state.soundFile[index].playStop}></span>
                                             </button>
-                                            {this.state.fileNames[index]}
+
+                                            {/* {this.getDuration()} */}
+
+                                            {this.state.soundFile[index].name}
                                             <button 
                                                 className="button button__delete"
                                                 onClick={this.handleDelete.bind(this)}
                                             > 
                                                 X 
                                             </button>
+                                            
                                         </div>
                                     )
                                 })

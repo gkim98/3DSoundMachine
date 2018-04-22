@@ -1,3 +1,10 @@
+body {
+  font-family: "Open Sans";
+  font-weight: 400;
+  line-height: 1.7;
+  box-sizing: border-box;
+}
+
 .button {
   outline: none;
   text-decoration: none;
@@ -5,6 +12,7 @@
   height: 50px;
   border-radius: 15px;
   margin: 10px;
+  font-family: "Open Sans";
   font-size: 15px;
 }
 
@@ -78,6 +86,44 @@
   color: white;
 }
 
+@keyframes moveInLeft {
+  0% {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes moveOutRight {
+  0% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+}
+
+.moveInLeft {
+  animation: moveInLeft 0.8s;
+  animation-fill-mode: forwards;
+}
+
+.moveOutRight {
+  animation: moveOutRight 0.8s;
+  animation-fill-mode: forwards;
+}
+
+.bar__message {
+  font-family: "Open Sans";
+  display: inline-block;
+  margin-left: 10px;
+}
+
 .bar__flex-container {
   display: flex;
   width: 100%;
@@ -112,12 +158,21 @@
   display: block;
 }
 
+.dropdown-left {
+  display: inline-block;
+}
+
+.dropdown {
+  display: inline-block;
+}
+
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
 .select-new {
   position: relative;
+  font-family: "Open Sans";
 }
 
 .playing {
@@ -128,6 +183,18 @@
 .playing:hover {
   background-color: #af0807;
   color: white;
+}
+
+.fas {
+  position: relative;
+  float: left;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+.hidden {
+  display: none;
 }
 
 .source {
