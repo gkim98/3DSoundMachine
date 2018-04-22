@@ -29,21 +29,8 @@ export default class MainPage extends React.Component {
 
                 <Toolbar onAddSource={this.addSource.bind(this)} />
                 <SoundBoard onRef={ref => (this.child = ref)}/>
-                {/* <input id="sound-file" type="file" onChange={this.selectFile.bind(this)}/>
-               
-                {
-                    this.state.sounds.map((sound, index) => {
-                        console.log(this.state.names);
-                        return (
-
-                            <div key={index}> 
-                                {this.state.names[index]}
-                            </div>
-                        )
-                        
-                    })
-                } */}
                 <SourceSettings />
+                <Scrubber />
             </div>
         );
     }
