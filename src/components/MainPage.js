@@ -1,5 +1,6 @@
 import React from 'react';
 
+import SoundBoard from './SoundBoard';
 import Toolbar from './Toolbar'
 
 class MainPage extends React.Component {
@@ -13,7 +14,7 @@ class MainPage extends React.Component {
     render() {
         return (
             <div>
-                main page
+                <SoundBoard />
             </div>
         )
     }

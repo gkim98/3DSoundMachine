@@ -1,18 +1,9 @@
-export const setListenerPosition = ({ x, y } = {}) => ({
-    type: 'SET_POSITION',
-    position: {
-        x,
-        y
-    },
+export const setListenerXPosition = (xPos) => ({
+    type: 'SET_X_POSITION',
+    xPos
 });
 
-
-/*
-
-    MAYBE POSSIBLE SOLUTION
-*/
-// toggles true and false; the change of state will trigger songs
-export const playPressed = (toggle) => ({
-    type: 'PLAY_PRESSED',
-    playPressed: toggle
+export const setListenerYPosition = (yPos) => ({
+    type: 'SET_Y_POSITION',
+    yPos
 });

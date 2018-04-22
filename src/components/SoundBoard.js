@@ -1,27 +1,17 @@
 import React from 'react';
-import { Howl, Howler } from 'howler';
 
-import snapping from '../sounds/snapping.mp3';
-import birds from '../sounds/birds.mp3';
 import SoundSource from './SoundSource';
 import Listener from './Listener';
 
-class GrantPage extends React.Component {
+class SoundBoard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            xPos: 0,
-            yPos: 0,
             sources: [
                 //put sound sources here
             ]
         }
     }
-
-    // eventLogger = (e: MouseEvent, data: Object) => {
-    //     console.log('Event: ', e);
-    //     console.log('Data: ', data);
-    // };
 
     addSource = () => {
         this.setState({
@@ -32,18 +22,20 @@ class GrantPage extends React.Component {
         })
     }
 
+    // iterates through all the sound sources and plays their sounds
     playSounds = () => {
-        console.log(this)
         for(let i = 0; i < this.state.sources.length; i++) {
-            console.log(this[`source${i}`])
             this[`source${i}`].getWrappedInstance().playSound();
         }
     }
 
     render() {
+        // replace the add source button with yours
+        // Listener: perspective of the user
+        // map through sounds array creating SoundSources
+        // SoundSources take 1) delay 2) file props
         return (
             <div>
-                <button onClick={this.playSound}>Sound</button>
                 <button onClick={this.addSource}>Add Sound Source</button>
                 <Listener onClick={this.playSounds}/>
                 {
@@ -52,15 +44,13 @@ class GrantPage extends React.Component {
                             <SoundSource 
                                 key={i}
                                 ref={(source) => this[`source${i}`] = source}
-                                index={i}
                             />
                         )
                     })
                 }
-                
             </div>
         )
     }
 }
 
-export default GrantPage;
+export default SoundBoard;

@@ -1,8 +1,8 @@
 import React from 'react';
-import Draggable, {DraggableCore} from 'react-draggable';
+import Draggable, { DraggableCore } from 'react-draggable';
 import { connect } from 'react-redux';
 
-import { setListenerPosition } from '../actions/listener';
+import { setListenerXPosition, setListenerYPosition } from '../actions/listener';
 
 class Listener extends React.Component {
     constructor(props) {
@@ -26,16 +26,17 @@ class Listener extends React.Component {
         });
     }
 
-    // redux stores the listener's position when play is pressed
-    storePos = () => {
-        this.props.dispatch(setListenerPosition(this.state.deltaPosition));
-    }
-
+    // updates listener's position and plays soundscape
+    // upon play button click (see refs in parent component)
     clickedPlay = () => {
-        this.storePos();
+        console.log(this.state.deltaPosition.x)
+        this.props.updateXPosition(this.state.deltaPosition.x);
+        this.props.updateYPosition(this.state.deltaPosition.y);
         this.props.onClick();
     }
 
+    // play button will produce the soundscape from listener perspective
+    // add transform to style if you want to start at center
     render() {
         const { deltaPosition } = this.state;
         return (
@@ -57,10 +58,9 @@ class Listener extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        listener: state.listener
-    }
-};
+const mapDispatchToProps = (dispatch) => ({
+    updateXPosition: () => dispatch(setListenerXPosition()),
+    updateYPosition: () => dispatch(setListenerYPosition())
+});
 
-export default connect(mapStateToProps)(Listener);
+export default connect(undefined, mapDispatchToProps)(Listener);
