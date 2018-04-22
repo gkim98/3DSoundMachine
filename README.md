@@ -10,3 +10,9 @@ Back when we were kids, there was this video called the "Virtual Barber Shop" th
 https://www.youtube.com/watch?v=IUDTlvagjJA
 
 The video made you feel like Luigi was right behind you, cutting your hair. Fast forward ten years, we somehow came across the video again and wanted to experiment with 3D audio ourselves. However, as broke college students, we weren't about to drop a thousand dollars for a 3D mic. 
+
+## What's Next
+1. Animation & Keyframes of position
+2. Export Audio file as MP4 download
+3. Auth to save soundscapes
+4. More controls over properties such as fade
