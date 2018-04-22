@@ -31,6 +31,11 @@ class Listener extends React.Component {
         this.props.dispatch(setListenerPosition(this.state.deltaPosition));
     }
 
+    clickedPlay = () => {
+        this.storePos();
+        this.props.onClick();
+    }
+
     render() {
         const { deltaPosition } = this.state;
         return (
@@ -44,7 +49,7 @@ class Listener extends React.Component {
                             y: {deltaPosition.y}
                         </div>
                         <div className="speaker"></div>
-                        <button onClick={this.storePos}>Play</button>
+                        <button onClick={this.clickedPlay}>Play</button>
                     </div>
                 </Draggable>
             </div>

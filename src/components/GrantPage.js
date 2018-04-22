@@ -18,22 +18,6 @@ class GrantPage extends React.Component {
         }
     }
 
-    playSound = () => {
-        let sound = new Howl({
-           src: snapping
-        });
-
-        Howler.pos(0, 0, 0)
-          
-        sound.pos(-.5, 0, 0)
-        sound.play()
-    
-        setTimeout(function() {
-            sound.pos(.5, 0, 0)
-            sound.play()
-        }, 2000)
-    }
-
     // eventLogger = (e: MouseEvent, data: Object) => {
     //     console.log('Event: ', e);
     //     console.log('Data: ', data);
@@ -45,16 +29,26 @@ class GrantPage extends React.Component {
         })
     }
 
+    playSound = () => {
+        for(let i = 0; i < this.state.sources.length; i++) {
+            this[`source${i}`].playSound();
+        }
+    }
+
     render() {
         return (
             <div>
                 <button onClick={this.playSound}>Sound</button>
                 <button onClick={this.addSource}>Add Sound Source</button>
-                <Listener />
+                <Listener onClick={this.playSound}/>
                 {
                     this.state.sources.map((data, i) => {
                         return (
-                            <SoundSource key={i}/>
+                            <SoundSource 
+                                key={i}
+                                ref={(source) => this[`source${i}`] = source}
+                                index={i}
+                            />
                         )
                     })
                 }

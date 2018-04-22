@@ -1,5 +1,8 @@
 import React from 'react';
 import Draggable, {DraggableCore} from 'react-draggable';
+import { Howl, Howler } from 'howler';
+
+import snapping from '../sounds/snapping.mp3';
 
 class SoundSource extends React.Component {
     constructor(props) {
@@ -13,6 +16,7 @@ class SoundSource extends React.Component {
         }
     }
 
+    // tracks positioning of the sound source
     handleDrag = (e, ui) => {
         const {x, y} = this.state.deltaPosition;
         this.setState({
@@ -21,6 +25,16 @@ class SoundSource extends React.Component {
                 y: y + ui.deltaY
             }
         });
+    }
+
+    // plays its sound relative to the listener
+    playSound = () => {
+        let sound = new Howl({
+            src: snapping
+        });
+        setTimeout(function() {
+            sound.play()
+        }, this.props.index * 1000);
     }
 
     render() {
