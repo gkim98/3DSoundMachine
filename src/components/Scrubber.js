@@ -13,18 +13,25 @@ export default class Scrubber extends React.Component {
             currentValue: 0,
             maxValue: 30000,
             length: 30,
-            startTime: null
+            startTime: null,
+            pixelMaxValue: 0.8 * window.innerWidth,
+            marks: [1, 5, 10, 20],
         };
+
+
     }
     
     componentDidMount() {
-        this.start();
+        this.setState({
+            pixelMaxValue: document.querySelector("#myRange").offsetWidth,
+        });
     }
 
     onSliderChange(event) {
         this.setState({
             currentValue: event.target.value,
         });
+        
     }
 
     onLengthChange(event) {
@@ -40,7 +47,6 @@ export default class Scrubber extends React.Component {
         });
 
         var myVar = setInterval(function(){ 
-            console.log("HELLO");
             this.setState({
                 currentValue: this.state.currentValue + 100,
             });
@@ -75,6 +81,19 @@ export default class Scrubber extends React.Component {
                     id="myRange" 
                     onChange={this.onSliderChange.bind(this)}
                 />
+                <div style={{position: 'relative'}}>
+                    {
+                        this.state.marks.map( (mark, index) => {
+                            var pos = this.state.marks[index]/this.state.length * this.state.pixelMaxValue;
+                            console.log(pos.toString());
+                            return (
+                                <i class="fas fa-caret-up" style={{left: pos.toString()+"px" }} key={index}></i>
+                            )
+                            
+                        })
+                    }
+                    
+                </div>
                 
             </div>
         );

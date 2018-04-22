@@ -2,11 +2,14 @@ import React from 'react';
 import { Howl, Howler } from 'howler';
 
 // Default Sounds
-import BirdSound from '../sounds/birds.mp3';
+
 import Clap from '../sounds/clap.wav';
 import Applause from '../sounds/applause.wav';
 import Ping from '../sounds/beep.wav';
-import Waves from '../sounds/waves.wav'
+import Waves from '../sounds/waves.wav';
+import Crowd from '../sounds/crowd.wav';
+import Seagulls from '../sounds/seagulls.wav';
+import Playing from '../sounds/playing.mp3';
 
 function fancyTimeFormat(time)
 {   
@@ -31,11 +34,7 @@ export default class Toolbar extends React.Component {
     constructor(props) {
         super(props);
 
-        var sound1 = new Howl({
-            src: [BirdSound],
-            onend: this.previewEnd.bind(this),
-            onload: this.updateDuration.bind(this)
-        });
+
         
         var sound2 = new Howl({
             src: [Clap],
@@ -61,15 +60,41 @@ export default class Toolbar extends React.Component {
             onload: this.updateDuration.bind(this)
         });
 
+        var sound6= new Howl({
+            src: [Crowd],
+            onend: this.previewEnd.bind(this),
+            onload: this.updateDuration.bind(this)
+        });
+
+
+        var sound7 = new Howl({
+            src: [Seagulls],
+            onend: this.previewEnd.bind(this),
+            onload: this.updateDuration.bind(this)
+        });
+
+
+        var sound8 = new Howl({
+            src: [Playing],
+            onend: this.previewEnd.bind(this),
+            onload: this.updateDuration.bind(this)
+        });
+
+
+
+
 
 
         this.state = {
             soundFile: [
-                {sound: sound1, src: BirdSound, type: "", name: "Birds", duration: "--:--", previewClass: "", playStop: "play"},
+               
                 {sound: sound2, src: Clap, type: "", name: "Clap", duration: "--:--", previewClass: "", playStop: "play"},
                 {sound: sound3, src: Applause, type: "", name: "Applause", duration: "--:--", previewClass: "", playStop: "play"},
                 {sound: sound4, src: Ping, type: "", name: "Ping", duration: "--:--", previewClass: "", playStop: "play"},
                 {sound: sound5, src: Waves, type: "", name: "Waves", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound6, src: Crowd, type: "", name: "Crowd", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound7, src: Seagulls, type: "", name: "Seagulls", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound8, src: Playing, type: "", name: "Playing", duration: "--:--", previewClass: "", playStop: "play"}
             ],
             playingIDs: [],
             messageClass: "hidden",
