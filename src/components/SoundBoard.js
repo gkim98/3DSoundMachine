@@ -21,12 +21,20 @@ class SoundBoard extends React.Component {
         this.props.onRef(undefined);
     }
 
-    addSource(file, name) {
+    addSource(file, name, ext) {
+      
+        if(file.substr(0, 5) === "blob:")
+            file = [file];
+
+        console.log(file);
+        console.log(ext);
+
         this.setState({
             sources: [...this.state.sources, {
                 delay: 0,
                 file,
-                name
+                name,
+                type: ext
             }]
         })
     }

@@ -65,11 +65,11 @@ export default class Toolbar extends React.Component {
 
         this.state = {
             soundFile: [
-                {sound: sound1, src: BirdSound, name: "Birds", duration: "--:--", previewClass: "", playStop: "play"},
-                {sound: sound2, src: Clap, name: "Clap", duration: "--:--", previewClass: "", playStop: "play"},
-                {sound: sound3, src: Applause, name: "Applause", duration: "--:--", previewClass: "", playStop: "play"},
-                {sound: sound4, src: Ping, name: "Ping", duration: "--:--", previewClass: "", playStop: "play"},
-                {sound: sound5, src: Waves, name: "Waves", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound1, src: BirdSound, type: "", name: "Birds", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound2, src: Clap, type: "", name: "Clap", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound3, src: Applause, type: "", name: "Applause", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound4, src: Ping, type: "", name: "Ping", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound5, src: Waves, type: "", name: "Waves", duration: "--:--", previewClass: "", playStop: "play"},
             ],
             playingIDs: [],
             messageClass: "hidden",
@@ -83,7 +83,7 @@ export default class Toolbar extends React.Component {
         if(!fileObj)
             return;
 
-        var objectURL = window.URL.createObjectURL(fileObj)
+        var objectURL = window.URL.createObjectURL(fileObj);
 
         var type = fileObj.type.split("/")[1];
 
@@ -96,7 +96,7 @@ export default class Toolbar extends React.Component {
         });
 
         this.setState({
-            soundFile: [{sound: sound, name: fileObj.name, src: objectURL, previewClass: "", playStop: "play"}, ...this.state.soundFile],
+            soundFile: [{sound: sound, name: fileObj.name, src: objectURL, type: type, previewClass: "", playStop: "play"}, ...this.state.soundFile],
             messageClass: "moveInLeft"
         });
 
@@ -241,7 +241,7 @@ export default class Toolbar extends React.Component {
         
 
 
-        this.props.onAddSource( selectedSoundFile.src, selectedSoundFile.name );
+        this.props.onAddSource( selectedSoundFile.src, selectedSoundFile.name, selectedSoundFile.type );
 
 
     }

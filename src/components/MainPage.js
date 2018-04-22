@@ -15,8 +15,8 @@ export default class MainPage extends React.Component {
         };
     }
  
-    addSource(src, name) {
-        this.child.addSource(src, name);
+    addSource(src, name, type) {
+        this.child.addSource(src, name, type);
     }
 
 

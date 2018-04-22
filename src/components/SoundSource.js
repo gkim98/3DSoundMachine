@@ -38,6 +38,7 @@ class SoundSource extends React.Component {
         console.log(this.props.listener.position);
         var sound = new Howl({
             src: this.props.source.file,
+            format: this.props.source.type,
             onend: this.props.donePlaying,
         });
 
