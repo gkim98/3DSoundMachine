@@ -54,3 +54,13 @@
     position: relative;
 
 }
+
+.playing {
+    background-color: rgb(175, 8, 7);
+    color: white;
+
+    &:hover {
+        background-color: rgb(175, 8, 7);
+        color: white;
+    }
+}

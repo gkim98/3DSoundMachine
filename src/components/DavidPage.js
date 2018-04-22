@@ -1,7 +1,7 @@
 import React from 'react';
 import { Howl, Howler } from 'howler';
 import birdSound from '../sounds/clap.wav';
-import Toolbar from "./ToolBar";
+import Toolbar from "./Toolbar";
 
 // var sound = new Howl({
 //     src: birdSound
