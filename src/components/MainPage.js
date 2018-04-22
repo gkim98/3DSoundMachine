@@ -6,7 +6,7 @@ import SoundBoard from "./SoundBoard";
 
 
 
-export default class DavidPage extends React.Component {
+export default class MainPage extends React.Component {
     constructor(props) {
         super(props);
 
