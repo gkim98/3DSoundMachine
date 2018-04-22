@@ -32,8 +32,11 @@ class SoundBoard extends React.Component {
         if(file.substr(0, 5) === "blob:")
             file = [file];
 
+<<<<<<< HEAD
         // console.log(file);
         // console.log(ext);
+=======
+>>>>>>> d422b3d2cc02a8d93abf158720ebb08fdd00ec80
 
         // uuid allows each source to have a unique identifier
         this.setState({
@@ -50,6 +53,11 @@ class SoundBoard extends React.Component {
 
     // iterates through all the sound sources and plays their sounds
     playSounds = () => {
+        if(this.state.sources.length===0){
+            this.listenerChild.switchToPlay();
+            return;
+        }
+
         for(let i = 0; i < this.state.sources.length; i++) {
             this[`source${this.state.sources[i]._delayId}`].getWrappedInstance().playSound();
         }

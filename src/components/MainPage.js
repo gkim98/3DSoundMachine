@@ -27,6 +27,7 @@ export default class MainPage extends React.Component {
 
                 <Toolbar onAddSource={this.addSource.bind(this)} />
                 <SoundBoard onRef={ref => (this.child = ref)}/>
+<<<<<<< HEAD
                 {/* <input id="sound-file" type="file" onChange={this.selectFile.bind(this)}/>
                
                 {
@@ -42,6 +43,10 @@ export default class MainPage extends React.Component {
                     })
                 } */}
                
+=======
+                <SourceSettings />
+                <Scrubber />
+>>>>>>> d422b3d2cc02a8d93abf158720ebb08fdd00ec80
             </div>
         );
     }
