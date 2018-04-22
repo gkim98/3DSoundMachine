@@ -1,4 +1,10 @@
 .bar {
+    &__message {
+        font-family: "Open Sans";
+        display: inline-block;
+        margin-left: 10px;
+    }
+
     &__flex-container {
         display: flex;
         width: 100%;    
@@ -44,7 +50,13 @@
 
 }
 
+.dropdown-left {
+    display: inline-block;
+}
 
+.dropdown {
+    display: inline-block;
+}
 
 .dropdown:hover .dropdown-content {
     display: block;
@@ -52,15 +64,38 @@
 
 .select-new {
     position: relative;
-
+    font-family: "Open Sans";
 }
 
 .playing {
-    background-color: rgb(175, 8, 7);
-    color: white;
+    background-color: transparent;
+    color: rgb(175, 8, 7);
 
     &:hover {
         background-color: rgb(175, 8, 7);
         color: white;
     }
+}
+
+.fas {
+    position: relative;
+    float: left;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.hidden {
+    display: none;
+}
+
+.duration {
+    display: inline-block;
+    margin: 0;
+    position: absolute;
+  
+    font-size: 10px;
+    top: 52%;
+    right: 8%;
+    transform: translateY(-50%);
 }

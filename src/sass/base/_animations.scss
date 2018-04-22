@@ -1,0 +1,33 @@
+@keyframes moveInLeft{
+    0% {
+        transform: translateX(-10px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes moveOutRight {
+    0% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(10px);
+        opacity: 0;
+    }
+}
+
+.moveInLeft {
+    animation: moveInLeft 0.8s;
+    animation-fill-mode: forwards;
+}
+
+.moveOutRight {
+    animation: moveOutRight 0.8s;
+    animation-fill-mode: forwards;
+}
