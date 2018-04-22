@@ -32,10 +32,6 @@ class SoundBoard extends React.Component {
         if(file.substr(0, 5) === "blob:")
             file = [file];
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a8205a7b9cb7b0af2555a567a5fe302f4a7b7b72
         // uuid allows each source to have a unique identifier
         this.setState({
             sources: keyIndex([...this.state.sources, {
@@ -119,7 +115,6 @@ class SoundBoard extends React.Component {
         // SoundSources take 1) delay 2) file props
         return (
             <div>
-                {/* <button onClick={this.addSource.bind(this)}>Add Sound Source</button> */}
                 <Listener onRef={ref => (this.listenerChild = ref)} onClick={this.playSounds} stopPlaying={this.stopPlaying.bind(this)} />
                 {
                     this.state.sources.map((data) => {
