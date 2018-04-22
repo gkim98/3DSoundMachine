@@ -8,6 +8,24 @@ import Applause from '../sounds/applause.wav';
 import Ping from '../sounds/beep.wav';
 import Waves from '../sounds/waves.wav'
 
+function fancyTimeFormat(time)
+{   
+    // Hours, minutes and seconds
+    var hrs = ~~(time / 3600);
+    var mins = ~~((time % 3600) / 60);
+    var secs = time % 60;
+    secs = Math.ceil(secs);
+    // Output like "1:01" or "4:03:59" or "123:03:59"
+    var ret = "";
+
+    if (hrs > 0) {
+        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+    }
+
+    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+    ret += "" + secs;
+    return ret;
+}
 
 export default class Toolbar extends React.Component {
     constructor(props) {
@@ -15,38 +33,43 @@ export default class Toolbar extends React.Component {
 
         var sound1 = new Howl({
             src: [BirdSound],
-            onend: this.previewEnd.bind(this)
+            onend: this.previewEnd.bind(this),
+            onload: this.updateDuration.bind(this)
         });
         
         var sound2 = new Howl({
             src: [Clap],
-            onend: this.previewEnd.bind(this)
+            onend: this.previewEnd.bind(this),
+            onload: this.updateDuration.bind(this)
         });
 
         var sound3 = new Howl({
             src: [Applause],
-            onend: this.previewEnd.bind(this)
+            onend: this.previewEnd.bind(this),
+            onload: this.updateDuration.bind(this)
         });
 
         var sound4 = new Howl({
             src: [Ping],
-            onend: this.previewEnd.bind(this)
+            onend: this.previewEnd.bind(this),
+            onload: this.updateDuration.bind(this)
         });
 
         var sound5 = new Howl({
             src: [Waves],
-            onend: this.previewEnd.bind(this)
+            onend: this.previewEnd.bind(this),
+            onload: this.updateDuration.bind(this)
         });
 
 
 
         this.state = {
             soundFile: [
-                {sound: sound1, name: "Birds", previewClass: "", playStop: "play"},
-                {sound: sound2, name: "Clap", previewClass: "", playStop: "play"},
-                {sound: sound3, name: "Applause", previewClass: "", playStop: "play"},
-                {sound: sound4, name: "Ping", previewClass: "", playStop: "play"},
-                {sound: sound5, name: "Waves", previewClass: "", playStop: "play"},
+                {sound: sound1, name: "Birds", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound2, name: "Clap", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound3, name: "Applause", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound4, name: "Ping", duration: "--:--", previewClass: "", playStop: "play"},
+                {sound: sound5, name: "Waves", duration: "--:--", previewClass: "", playStop: "play"},
             ],
             playingIDs: [],
             messageClass: "hidden"
@@ -67,7 +90,8 @@ export default class Toolbar extends React.Component {
         var sound = new Howl({
             src: [objectURL],
             format: type,
-            onend: this.previewEnd.bind(this)
+            onend: this.previewEnd.bind(this),
+            onload: this.updateDuration.bind(this)
         });
 
         this.setState({
@@ -109,22 +133,30 @@ export default class Toolbar extends React.Component {
 
     handleDelete(event) {
         //console.log(event.target.parentElement.id);
-        var indexRemove = event.target.parentElement.id;
- 
+
+
+        var indexRemove = event.target.id;
+
+        
+        console.log(event.target.id);
+
+        this.state.soundFile[indexRemove].sound.stop();
+
         var current = this.state.soundFile;
         current.splice(indexRemove, 1);
 
         this.setState({
             soundFile: current,
         });
+        
+
+        
     }
 
     handlePreview(event) {
         //console.log(event.target);
-        var indexPreview = event.target.parentElement.parentElement.id;
+        var indexPreview = event.target.parentElement.id;
 
-        if(!this.state.soundFile[indexPreview])
-            return;
 
         if(this.state.soundFile[indexPreview].playStop==="play") {
 
@@ -170,12 +202,27 @@ export default class Toolbar extends React.Component {
     }
 
     handleAddSound(event) {
-        if(event.target.tagName==="SPAN" || event.target.tagName==="BUTTON")
+        //console.log(event.target.tagName);
+        if(event.target.tagName==="I" || event.target.tagName==="SPAN" || event.target.tagName==="BUTTON")
             return;
 
         var selectedID = event.target.id;
         var selectedSound = this.state.soundFile[selectedID].sound;
-        //console.log(selectedSound);
+
+    }
+
+    updateDuration() {
+        //console.log("loaded");
+
+        var current = this.state.soundFile;
+        this.state.soundFile.map( (file, index) => {
+            current[index].duration = fancyTimeFormat(file.sound.duration());
+        });
+
+        //console.log(current);
+        this.setState({
+            soundFile: current,
+        });
     }
 
 
@@ -205,18 +252,25 @@ export default class Toolbar extends React.Component {
                                             <button 
                                                 className={"button button__preview " + this.state.soundFile[index].previewClass}
                                                 onClick={this.handlePreview.bind(this)}
+                                                id={index}
                                             >   
                                                 <span className={"fas fa-" + this.state.soundFile[index].playStop}></span>
                                             </button>
 
-                                            {/* {this.getDuration()} */}
-
+                                           
                                             {this.state.soundFile[index].name}
+
+                                            <p className="duration">
+                                                {this.state.soundFile[index].duration} &nbsp;
+                                            </p>
+
+
                                             <button 
                                                 className="button button__delete"
                                                 onClick={this.handleDelete.bind(this)}
+                                                id={index}
                                             > 
-                                                X 
+                                                <i className="fas fa-times" id={index}></i>
                                             </button>
                                             
                                         </div>

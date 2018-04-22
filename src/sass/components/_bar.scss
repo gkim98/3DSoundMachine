@@ -68,8 +68,8 @@
 }
 
 .playing {
-    background-color: rgb(175, 8, 7);
-    color: white;
+    background-color: transparent;
+    color: rgb(175, 8, 7);
 
     &:hover {
         background-color: rgb(175, 8, 7);
@@ -87,4 +87,15 @@
 
 .hidden {
     display: none;
+}
+
+.duration {
+    display: inline-block;
+    margin: 0;
+    position: absolute;
+  
+    font-size: 10px;
+    top: 52%;
+    right: 8%;
+    transform: translateY(-50%);
 }
