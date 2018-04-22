@@ -26,8 +26,6 @@ class SoundBoard extends React.Component {
         if(file.substr(0, 5) === "blob:")
             file = [file];
 
-        console.log(file);
-        console.log(ext);
 
         this.setState({
             sources: [...this.state.sources, {
@@ -41,6 +39,11 @@ class SoundBoard extends React.Component {
 
     // iterates through all the sound sources and plays their sounds
     playSounds = () => {
+        if(this.state.sources.length===0){
+            this.listenerChild.switchToPlay();
+            return;
+        }
+
         for(let i = 0; i < this.state.sources.length; i++) {
             this[`source${i}`].getWrappedInstance().playSound();
         }
